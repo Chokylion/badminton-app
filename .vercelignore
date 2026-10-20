@@ -1,0 +1,18 @@
+node_modules
+.env
+.env.local
+.env.*.local
+.vercel
+*.log
+.DS_Store
+
+# Design/spec artifacts — not part of the deployed app
+PRD.md
+mock-*.html
+mock-*.png
+
+# Dev-only screenshot harnesses + scratch images
+_*.mjs
+_*.png
+# ...and any scratch dir (headless browser profiles lock files mid-upload)
+_*/

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0f0a">
+<title>Gooseminton — ADI Badminton Ladder</title>
+<!-- Fonts are self-hosted (latin-subset variable woff2, same origin): no
+     third-party DNS/TLS, no render-blocking Google CSS, cached immutably.
+     Deliberately NOT preloaded: they are 113KB of the ~210KB first-visit
+     budget, and preloading put them at top priority ahead of app.js. They all
+     use font-display:swap, so text paints immediately in the fallback and
+     swaps when they land — letting the app's code win the bandwidth race. -->
+<!-- Fires /api/init during HTML parse instead of three round trips deep,
+     and pulls fx.js down in parallel with app.js instead of after it.
+     `async` so the parser never waits for it (as a blocking <head> script it
+     cost 1.3s of first paint on a 3G phone), plus a preload hint because async
+     scripts are fetched at Low priority and this one gates the app's data.
+     app.js falls back to its own /api/init call if this hasn't run yet. -->
+<link rel="preload" href="/preboot.js?v=48a23bf7" as="script">
+<script async src="/preboot.js?v=48a23bf7"></script>
+<link rel="modulepreload" href="/fx.js?v=d01e628b">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Gooseminton">
+<!-- The app shell (fonts, custom properties, reset, boot screen) is inlined by
+     scripts/stamp-assets.mjs so the first paint costs zero extra round trips.
+     Do not hand-edit: everything above `critical:end` in styles.css lands here. -->
+<style id="crit">/* self-hosted latin-subset variable fonts (was 674KB from Google across 2 origins) */
+@font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/anton.woff2) format('woff2')}
+@font-face{font-family:'Archivo';font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/archivo.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:swap;src:url(/fonts/jetbrains-mono.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:300 700;font-display:swap;src:url(/fonts/space-grotesk.woff2) format('woff2')}
+/* Smashboard — design system lifted from the approved mockups, made responsive.
+   One accent (smash orange), semantic green/red only, condensed display type,
+   tabular numbers. Mobile-first; on desktop the app sits in a centered column. */
+:root{
+  --bg:#08090c; --canvas:#050608;
+  --card:#14171e; --card2:#1a1e27; --hair:rgba(255,255,255,.07);
+  --ink:#f3f2ee; --mut:#8b909b; --dim:#5a5f6b;
+  --accent:#57b947; --accent2:#a6e394;
+  --win:#37e0a0; --loss:#ff5470;
+  --gold:#f6c453; --violet:#b98bff; --blue:#5ac8fa;
+  --disp:'Archivo',system-ui,sans-serif;
+  --num:'Anton',system-ui,sans-serif;
+  --body:'Space Grotesk',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --maxw:460px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--canvas);color:var(--ink);font-family:var(--body);
+  background-image:radial-gradient(120% 90% at 50% -10%,#101420 0%,#050608 55%);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font-family:inherit;color:inherit;cursor:pointer;border:none;background:none}
+input,select{font-family:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+.tnum{font-variant-numeric:tabular-nums}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* frame / layout */
+.frame{position:relative;width:100%;max-width:var(--maxw);margin:0 auto;min-height:100dvh;
+  padding:8px 20px calc(96px + env(safe-area-inset-bottom));
+  background:radial-gradient(130% 60% at 50% -6%,#101623 0%,transparent 46%)}
+.boot{display:grid;place-items:center;height:70dvh;color:var(--mut);font-family:var(--mono);font-size:13px}
+.view{animation:fade .32s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}</style>
+<!-- The full sheet is fetched at high priority but does NOT block the first
+     paint; preboot.js promotes it to a stylesheet the moment it arrives.
+     A blocking <link> here cost 3.2s of render-blocking time on a 3G phone. -->
+<link id="fullcss" rel="preload" as="style" href="/styles.css?v=09506740">
+<noscript><link rel="stylesheet" href="/styles.css?v=09506740"></noscript>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<main id="app" class="frame"><div class="boot">Loading Gooseminton 🪿…</div></main>
+<div id="toast" class="toast-wrap" aria-live="polite"></div>
+<div id="modal-root"></div>
+<script type="module" src="/app.js?v=b5bc00f5"></script>
+</body>
+</html>

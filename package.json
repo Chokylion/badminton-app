@@ -1,0 +1,19 @@
+{
+  "name": "smashboard",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Smashboard ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â the ADI badminton club tracker (Vercel + Supabase).",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node lib/model.js --test && node lib/rating.js --test && node lib/titles.js --test && node lib/room.js --test && node lib/epithets.js --test && node lib/cosmetics.js --test && node lib/level.js --test && node lib/arcade.js --test && node lib/holdem.js --test && node lib/forge.js --test && node lib/charms.js --test && node lib/campaign.js --test",
+    "stamp": "node scripts/stamp-assets.mjs",
+    "deploy": "node scripts/stamp-assets.mjs && npx vercel deploy --prod --yes",
+    "dev": "node scripts/dev-server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Gooseminton — ADI Badminton Ladder",
+  "short_name": "Gooseminton",
+  "description": "Log matches, climb the Elo ladder, run club nights and chase epithets.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#08090c",
+  "theme_color": "#0a0f0a",
+  "categories": ["sports", "social"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
